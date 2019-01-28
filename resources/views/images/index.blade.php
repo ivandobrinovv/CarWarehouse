@@ -31,7 +31,7 @@
                                 <tr>
                                     <td>{{ $value->id }}</td>
                                     <td>{{ $value->imageDescription }}</td>
-                                    <td><img src="<?php echo asset('storage/sample-images/' . $value->fileName);?>" alt="image" /></td>
+                                    <td><img style="width: 800px; height: 400px" src="<?php echo asset('storage/sample-images/' . $value->fileName);?>" alt="image" /></td>
                                         <td>
                                             <form action="/images/{{$value->id}}" method="POST">
                                                 @csrf
