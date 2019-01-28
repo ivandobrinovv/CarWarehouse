@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 class BrandModelController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param  \App\Brand  $brand
@@ -49,17 +39,6 @@ class BrandModelController extends Controller
 
         return redirect('/brands');
         //return redirect()->route('/brands', ['brand' => $brand]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\BrandModel  $brandModel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BrandModel $brandModel)
-    {
-        //
     }
 
     /**

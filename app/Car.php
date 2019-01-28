@@ -4,19 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BrandModel extends Model
+class Car extends Model
 {
-    protected $fillable = [
-        'name','brand_id'
-    ];
+    protected $guarded = [];
 
     public function brand()
     {
         $this->belongsTo(Brand::class);
     }
 
-    public  function cars()
+    public function brandModel()
     {
-        $this->hasMany(Car::class);
+        $this->belongsTo(BrandModel::class);
     }
 }
