@@ -41,6 +41,8 @@
                     </a>
                     <a class="nav-item nav-link" id="brands" href="/brands" aria-selected="false">Brands
                     </a>
+                    <a class="nav-item nav-link" id="images" href="/images" aria-selected="false">Images
+                    </a>
                 @else
                     <div class="m-md-1">
                         <a class="input-group-text" href="{{ route('login') }}">Login</a>

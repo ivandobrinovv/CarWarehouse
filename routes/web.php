@@ -32,3 +32,11 @@ Route::get('/search', 'CarController@search');
 Route::resource('brands', 'BrandController');
 
 Route::resource('cars', 'CarController');
+
+Route::get('/images', 'ImageController@index');
+
+Route::get('/images/create', 'ImageController@create');
+
+Route::post('/images', 'ImageController@store');
+
+Route::delete('/images/{id}', 'ImageController@destroy');
