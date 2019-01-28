@@ -7,6 +7,7 @@ use App\BrandModel;
 use App\Car;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use DB;
 
 class CarController extends Controller
 {
@@ -125,8 +126,20 @@ class CarController extends Controller
         return redirect('/cars');
     }
 
-    public function search($searchBy, $searchFor)
+    public function search(Request $request)
     {
-        dd($searchBy,$searchFor);
+        if($request[('search_by')] == 'year') {
+            $search = $request->get('search');
+            $cars = DB::table('cars')->where('year_of_production', 'like', '%' . $search . '%')
+                ->paginate(5);
+
+
+            $brands = Brand::all();
+
+
+            $brandModels = BrandModel::all();
+
+            return view('cars.index', compact(['cars', 'brands', 'brandModels']));
+        }
     }
 }

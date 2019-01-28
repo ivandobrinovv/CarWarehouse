@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CarController@index');
 
 Auth::routes();
 
@@ -29,7 +27,7 @@ Route::patch('/brandModels/{brandModel}', 'BrandModelController@update');
 
 Route::delete('/brandModels/{brandModel}', 'BrandModelController@destroy');
 
-Route::get('/cars/{searchBy}/search/{searchFor}', 'CarController@search');
+Route::get('/search', 'CarController@search');
 
 Route::resource('brands', 'BrandController');
 
