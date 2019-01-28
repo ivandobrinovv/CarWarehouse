@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
+use App\BrandModel;
 use App\Car;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -14,7 +17,13 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::all();
+
+        $brands = Brand::all();
+
+        $brandModels = BrandModel::all();
+
+        return view('cars.index', compact(['cars', 'brands', 'brandModels']));
     }
 
     /**
@@ -24,7 +33,9 @@ class CarController extends Controller
      */
     public function create()
     {
-        //
+        $brands = Brand::all();
+        $brandModels = BrandModel::all();
+        return view('cars.create', ['brands' => $brands, 'brandModels' => $brandModels]);
     }
 
     /**
@@ -35,7 +46,16 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'mileage' => 'required|min:1|max:7',
+            'year_of_production' => 'required|min:3|max:4',
+            'brand_id' => 'required',
+            'brand_model_id' => 'required'
+        ]);
+
+        Car::create($attributes);
+
+        return redirect('/cars');
     }
 
     /**
@@ -46,7 +66,9 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        //
+        return redirect()->action(
+            'CarController@edit', ['car' => $car]
+        );
     }
 
     /**
@@ -57,7 +79,11 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        //
+        $brands = Brand::all();
+
+        $brandModels = BrandModel::all();
+
+        return view('cars.edit', compact(['car', 'brands', 'brandModels']));
     }
 
     /**
@@ -69,7 +95,16 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        //
+        $attributes = $request->validate([
+            'mileage' => 'required|min:1|max:7',
+            'year_of_production' => 'required|min:3|max:4',
+            'brand_id' => 'required',
+            'brand_model_id' => 'required'
+        ]);
+
+        $car->update($attributes);
+
+        return redirect('/cars');
     }
 
     /**
@@ -80,6 +115,8 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        //
+        $car->delete();
+
+        return redirect('/cars');
     }
 }
