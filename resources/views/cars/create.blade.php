@@ -59,20 +59,20 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
 <script>
 
-    function populateModelsDropdown(brand_id) {
-        $('#brand_model_select').empty();
-        @foreach($brandModels as $brandModel)
-        if('{{$brandModel->brand_id}}' == brand_id)
-        {
-            $('#brand_model_select').append("<option value='" + "{{$brandModel->id}}" + "'>" + "{{$brandModel->name}}" +  "</option>");
-        }
-        @endforeach
-    }
-
     $(document).ready(function () {
-        populateModelsDropdown(populateModelsDropdown($('#brand_select').val()));
-        $('#brand_select').change(populateModelsDropdown($('#brand_select').val()));
+        $('#brand_select').change(function() {
+            let brand_id = $('#brand_select').val();
+
+                $('#brand_model_select').empty();
+                @foreach($brandModels as $brandModel)
+                if('{{$brandModel->brand_id}}' == brand_id)
+                {
+                    $('#brand_model_select').append("<option value='" + "{{$brandModel->id}}" + "'>" + "{{$brandModel->name}}" +  "</option>");
+                }
+                @endforeach
+        });
+
+        $('#brand_select').trigger('change');
 
     });
-
 </script>

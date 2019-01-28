@@ -66,8 +66,7 @@
 <script>
     $(document).ready(function () {
         $("#@yield('menuItem', '')").addClass('active');
-    })
-    }
+    });
 </script>
 </body>
 </html>

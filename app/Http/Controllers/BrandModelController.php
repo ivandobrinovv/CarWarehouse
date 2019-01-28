@@ -43,7 +43,6 @@ class BrandModelController extends Controller
         ]);
 
         return redirect('/brands');
-        //return redirect()->route('/brands', ['brand' => $brand]);
     }
 
     /**

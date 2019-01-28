@@ -128,11 +128,32 @@ class CarController extends Controller
 
     public function search(Request $request)
     {
-        if($request[('search_by')] == 'year') {
-            $search = $request->get('search');
-            $cars = DB::table('cars')->where('year_of_production', 'like', '%' . $search . '%')
-                ->paginate(5);
+        $search = $request->get('search');
 
+        if($request['search_by'] == null || $search == null)
+        {
+            return back();
+        }
+
+        if($request[('search_by')] == 'year') {
+            $cars = DB::table('cars')
+                ->where('year_of_production', 'like', '%' . $search . '%')
+                ->paginate(5);
+        }
+        if($request[('search_by')] == 'model')
+        {
+            $cars = DB::table('cars')
+                ->join('brand_models', 'brand_models.id', '=', 'cars.brand_model_id')
+                ->where('name', 'like', '%' . $search . '%')
+                ->paginate(5);
+        }
+        if($request[('search_by')] == 'brand')
+        {
+            $cars = DB::table('cars')
+                ->join('brands', 'brands.id', '=', 'cars.brand_id')
+                ->where('name', 'like', '%' . $search . '%')
+                ->paginate(5);
+        }
 
             $brands = Brand::all();
 
@@ -140,6 +161,5 @@ class CarController extends Controller
             $brandModels = BrandModel::all();
 
             return view('cars.index', compact(['cars', 'brands', 'brandModels']));
-        }
     }
 }
