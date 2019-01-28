@@ -27,6 +27,9 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+           'imageDescription' => 'required|min:3|max:128'
+        ]);
         $path = $request->file('customImage')->store('public/sample-images');
 
         $image = new Image([
