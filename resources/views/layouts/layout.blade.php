@@ -58,7 +58,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 <script>
     $(document).ready(function () {
-        $("#@yield('menuItem')").addClass('active');
+        $("#@yield('menuItem', '')").addClass('active');
     })
 </script>
 </body>

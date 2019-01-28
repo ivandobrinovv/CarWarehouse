@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\BrandModel;
 use App\Brand;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class BrandModelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,91 +15,92 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::all();
-
-        return view('brands.index', compact('brands'));
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($brand)
     {
-        return view('brands.create');
+        return view('brandModels.create', compact('brand'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $brand)
     {
-        $attributes = $request->validate([
-            'name' => 'required|min:2|max:20',
-            'year_of_creation' => 'required|min:3|max:4'
+        $request->validate([
+            'name' => 'required|min:2|max:20'
         ]);
 
-        Brand::create($attributes);
+        BrandModel::create([
+           'name' => $request[('name')],
+           'brand_id' => $brand
+        ]);
 
         return redirect('/brands');
+        //return redirect()->route('/brands', ['brand' => $brand]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Brand  $brand
+     * @param  \App\BrandModel  $brandModel
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(BrandModel $brandModel)
     {
-        return view('brands.show', compact('brand'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Brand  $brand
+     * @param  \App\BrandModel  $brandModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(BrandModel $brandModel)
     {
-        return view('brands.edit', compact('brand'));
+        return view('brandModels.edit', compact('brandModel'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Brand  $brand
+     * @param  \App\BrandModel  $brandModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, BrandModel $brandModel)
     {
         $request->validate([
             'name' => 'required|min:2|max:20',
-            'year_of_creation' => 'required|min:3|max:4'
         ]);
 
-        $brand->update(request(['name', 'year_of_creation']));
+        $brandModel->update(request(['name']));
 
-        return redirect('/brands');
-
+        return redirect("/brands");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Brand  $brand
+     * @param  \App\BrandModel  $brandModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(BrandModel $brandModel)
     {
-        $brand->delete();
+        $brandModel->delete();
 
-        return redirect('/brands');
+        return redirect("/brands");
     }
 }

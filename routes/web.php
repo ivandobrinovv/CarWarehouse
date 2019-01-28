@@ -19,4 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/brands/{brand}/brandModels', 'BrandModelController@create');
+
+Route::post('/brands/{brand}/brandModels', 'BrandModelController@store');
+
+Route::get('/brandModels/{brandModel}/edit', 'BrandModelController@edit');
+
+Route::patch('/brandModels/{brandModel}', 'BrandModelController@update');
+
+Route::delete('/brandModels/{brandModel}', 'BrandModelController@destroy');
+
 Route::resource('brands', 'BrandController');
+
+//Route::resource('brandModels', 'BrandModelController');
