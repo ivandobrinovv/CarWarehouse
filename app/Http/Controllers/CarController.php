@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -118,5 +123,10 @@ class CarController extends Controller
         $car->delete();
 
         return redirect('/cars');
+    }
+
+    public function search($searchBy, $searchFor)
+    {
+        dd($searchBy,$searchFor);
     }
 }

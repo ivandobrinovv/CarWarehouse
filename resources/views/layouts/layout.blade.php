@@ -22,9 +22,14 @@
     <div class="nav nav-tabs mt-2" id="nav-tab" role="tablist">
         <a class="nav-item ml-2 mr-5">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                <input type="text" class="form-control" id="carSearch" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-search">Search</button>
+                    <select class="custom-select" name="search_by" id="searchBy">
+                        <option value="year" selected>Search by year.</option>
+                        <option value="model">Search by model.</option>
+                        <option value="brand">Search by brand.</option>
+                    </select>
                 </div>
             </div>
         </a>
@@ -59,7 +64,23 @@
 <script>
     $(document).ready(function () {
         $("#@yield('menuItem', '')").addClass('active');
+        $(document).on("click", '#button-search', findCars());
     })
+
+    function findCars() {
+            let wordToSearch = $("#carSearch").val();
+            let searchBy = $("#searchBy").val();
+            debugger;
+
+        $.ajax({
+            url: "http://localhost:8080" + "/cars/" + searchBy + "/search/" + wordToSearch,
+            type: 'GET',
+            data: null,
+            error: function () {
+                alert("An error occurred while searching!");
+            }
+        });
+    }
 </script>
 </body>
 </html>

@@ -29,6 +29,8 @@ Route::patch('/brandModels/{brandModel}', 'BrandModelController@update');
 
 Route::delete('/brandModels/{brandModel}', 'BrandModelController@destroy');
 
+Route::get('/cars/{searchBy}/search/{searchFor}', 'CarController@search');
+
 Route::resource('brands', 'BrandController');
 
 Route::resource('cars', 'CarController');
